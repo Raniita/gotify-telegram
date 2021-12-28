@@ -10,7 +10,7 @@ GOTIFY_PORT = os.environ.get('GOTIFY_PORT')
 APP_TOKEN = os.environ.get('GOTIFY_APP_TOKEN')
 CLIENT_TOKEN = os.environ.get('GOTIFY_CLIENT_TOKEN')
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
-CHAT_ID = os.environ.get('CHAT_ID')
+CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 logging.basicConfig(level=logging.INFO)
 
