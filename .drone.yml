@@ -11,7 +11,7 @@ steps:
   commands:
     - docker build -t gotify-telegram .
   when:
-    branch:
+  branch:
       - master
 
 - name: run
