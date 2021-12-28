@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+
+  gotify-telegram:
+    image: gotify-telegram
+    container_name: gotify-telegram
+    restart: unless-stopped
+    environment:
+      - GOTIFY_URL=<URL>
+      - GOTIFY_PORT=<HTTP PORT>
+      - GOTIFY_CLIENT_TOKEN=<CLIENT TOKEN>
+#      - GOTIFY_APP_TOKEN=<>
+      - TELEGRAM_CHAT_ID=<TELEGRAM CHAT ID>
+      - TELEGRAM_TOKEN=<TOKEN_HERE>
+      
