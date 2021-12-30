@@ -1,6 +1,8 @@
 pipeline:
   deploy_server:
     image: docker
+    environment:
+      DOCKER_USER:
+        from_secret: docker_username
     commands:
-      - echo "${DOCKER_USERNAME}"
-    secrets: [ docker_username ]
+      - echo "${DOCKER_USE}"
