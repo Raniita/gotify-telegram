@@ -2,5 +2,4 @@ env/
 .vscode/
 *.sh
 
-.drone.yml
 .woodpecker.yml
