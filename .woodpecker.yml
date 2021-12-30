@@ -3,4 +3,4 @@ pipeline:
     image: docker
     commands:
       - echo $test
-    secrets: [ testo ]
+    secrets: [testo]
