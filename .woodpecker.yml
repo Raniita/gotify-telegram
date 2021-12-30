@@ -4,7 +4,7 @@ pipeline:
     environment:
       DOCKER_USER:
         from_secret: docker_username
-        commands:
+    commands:
       - echo "${DOCKER_USER}"
 
 branches: master
