@@ -83,7 +83,7 @@ async def send_about(message: types.Message):
     logging.info('Sending about to: @{}<{}>'.format(message.chat.username, message.chat.id))
     content.append(md.text('Gotify Client for Telegram. Connected to: ', md.code(GOTIFY_URL), ' :check_mark:'))
 
-    await telegram_bot.send_message(message.chat.id, emojize(md.text(*content, sep='\n')))
+    await telegram_bot.send_message(message.chat.id, emojize(md.text(*content)), parse_mode=types.ParseMode.HTML)
 
 
 @dispatcher.message_handler()
