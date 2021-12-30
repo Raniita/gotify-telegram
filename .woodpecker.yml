@@ -3,7 +3,7 @@ pipeline:
     image: docker
     environment:
       DOCKER_USER:
-        from_secret: docker_username
+        from_secret: [docker_username]
     commands:
       - echo "${DOCKER_USER}"
 
