@@ -6,3 +6,5 @@ pipeline:
         from_secret: docker_username
         commands:
       - echo "${DOCKER_USER}"
+
+branches: master
