@@ -30,7 +30,7 @@ async def message_handler(websocket) -> None:
         await telegram_bot.send_message(CHAT_ID, "{}: {}".format(message['title'], message['message']))
 
 async def websocket_gotify(hostname: str, port: int, token: str) -> None:
-    logging.info('Starting gotify websocket...')
+    logging.info('Starting Gotify Websocket...')
     websocket_resource_url = f"wss://{hostname}:{port}/stream?token={token}"
     async with websockets.connect(websocket_resource_url) as websocket:
         logging.info("Connected to Gotify Websocket: {}:{}".format(GOTIFY_URL, GOTIFY_PORT))
@@ -81,9 +81,11 @@ async def send_about(message: types.Message):
     
     content = []
     logging.info('Sending about to: @{}<{}>'.format(message.chat.username, message.chat.id))
-    content.append(md.text('Gotify Client for Telegram. Connected to: ', md.code(GOTIFY_URL), ' :check_mark:'))
+    content.append([md.text('Gotify Client for Telegram. Connected to:', GOTIFY_URL, md.text(':check_mark:'))])
 
-    await telegram_bot.send_message(message.chat.id, emojize(md.text(*content)), parse_mode=types.ParseMode.HTML)
+    
+
+    await telegram_bot.send_message(message.chat.id, emojize(md.text(*content, sep='\n')), parse_mode=types.ParseMode.MARKDOWN_V2)
 
 
 @dispatcher.message_handler()
