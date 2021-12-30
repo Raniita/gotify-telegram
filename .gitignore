@@ -1,3 +1,5 @@
 env/
 .vscode/
 *.sh
+
+.drone.yml
