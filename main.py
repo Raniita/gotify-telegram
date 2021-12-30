@@ -5,6 +5,7 @@ from aiogram.utils.markdown import bold, code, italic, text
 import logging
 import asyncio
 import websockets
+import requests
 import json
 import os
 
@@ -43,8 +44,36 @@ async def websocket_gotify(hostname: str, port: int, token: str) -> None:
 @dispatcher.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     """ Send a message when the command /start or /help is issued. """
-    logging.info('Welcome message to: @{} [{}]'.format(message.chat.username,message.chat.id))
-    await message.reply('Hi! \n Gotify Bot')
+    logging.info('Welcome message to: @{}<{}>'.format(message.chat.username,message.chat.id))
+    await message.reply("Hi! \nI'm Gotify Bot")
+
+
+@dispatcher.message_handler(commands=['send'])
+async def send_notification(message: types.Message):
+    """ Send Notification to Gotify Server """
+    
+    await types.ChatActions.typing()
+
+    # Check if APP_TOKEN is defined
+    if APP_TOKEN != "":
+        url = "{}:{}/message?token={}".format(GOTIFY_URL, GOTIFY_PORT, APP_TOKEN)
+
+        resp = requests.post(url, json={
+            "message": 'Test message',
+            "priority": 10,
+            "title": 'test title'
+        })
+
+        logging.info('Gotify Notification Sent!. Response: {}'.format(resp))
+
+        await telegram_bot.send_message(message.chat.id, 'Gotify Sent!', parse_mode=ParseMode.MARKDOWN)
+    else:
+        logging.error('Gotify APP_TOKEN not defined')
+        
+        content = []
+        content.append(text(code('GOTIFY_APP_TOKEN'), ' not defined'))
+
+        await telegram_bot.send_message(message.chat.id, content, parse_mode=ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(commands=['about'])
@@ -53,10 +82,10 @@ async def send_about(message: types.Message):
     await types.ChatActions.typing()    # Send typing... to user
     
     content = []
-    logging.info('Sending about to: {}<{}>'.format(message.chat.username, message.chat.id))
+    logging.info('Sending about to: @{}<{}>'.format(message.chat.username, message.chat.id))
     content.append(text('Gotify Client for Telegram. Connected to: ', code(GOTIFY_URL), ' :check_mark:'))
 
-    await telegram_bot.send_message(message.chat.id, emojize(text(*content)), parse_mode=ParseMode.MARKDOWN)
+    await telegram_bot.send_message(message.chat.id, emojize(text(content)), parse_mode=ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler()
