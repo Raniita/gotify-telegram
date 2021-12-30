@@ -4,5 +4,5 @@ pipeline:
     environment:
       DOCKER_USER:
         from_secret: docker_username
-    commands:
-      - echo "${DOCKER_USE}"
+        commands:
+      - echo "${DOCKER_USER}"
