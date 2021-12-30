@@ -2,5 +2,5 @@ pipeline:
   docker:
     image: docker
     commands:
-      - echo $SSH_HOST
-    secrets: [ SSH_HOST ]
+      - echo $test
+    secrets: [ testo ]
