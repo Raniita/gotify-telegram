@@ -1,9 +1,6 @@
 pipeline:
-  
   deploy_server:
     image: docker
     secrets: [ docker_username ]
     commands:
-      - echo "${DOCKER_USERNAME}"
-
-#branches: main
+      - echo ${DOCKER_USERNAME}
