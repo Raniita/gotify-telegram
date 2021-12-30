@@ -45,6 +45,7 @@ async def send_welcome(message: types.Message):
     logging.info('Welcome message to: @{} [{}]'.format(message.chat.username,message.chat.id))
     await message.reply('Hi! \n Gotify Bot')
 
+
 @dispatcher.message_handler(commands=['about'])
 async def send_about(message: types.Message):
     """ Send info about the bot """
