@@ -1,4 +1,7 @@
 from aiogram import Bot, Dispatcher, dispatcher, executor, types
+from aiogram.types import ParseMode
+from aiogram.utils.emoji import emojize
+from aiogram.utils.markdown import bold, code, italic, text
 import logging
 import asyncio
 import websockets
@@ -41,6 +44,18 @@ async def send_welcome(message: types.Message):
     """ Send a message when the command /start or /help is issued. """
     logging.info('Welcome message to: @{} [{}]'.format(message.chat.username,message.chat.id))
     await message.reply('Hi! \n Gotify Bot')
+
+@dispatcher.message_handler(commands=['about'])
+async def send_about(message: types.Message):
+    """ Send info about the bot """
+    await types.ChatActions.typing()    # Send typing... to user
+    
+    content = []
+    logging.info('Sending about to: {}<{}>'.format(message.chat.username, message.chat.id))
+    content.append(text('Gotify Client for Telegram. Connected to: ', code(GOTIFY_URL)), ' :check_mark:')
+
+    await telegram_bot.send_message(message.chat.id, emojize(text(*content, sep='\n')), parse_mode=ParseMode.MARKDOWN)
+
 
 @dispatcher.message_handler()
 async def echo(message: types.Message):
