@@ -1,7 +1,5 @@
-from aiogram import Bot, Dispatcher, dispatcher, executor, types
-from aiogram.types import ParseMode
+from aiogram import Bot, Dispatcher, dispatcher, executor, types, md
 from aiogram.utils.emoji import emojize
-from aiogram.utils.markdown import bold, code, italic, text
 import logging
 import asyncio
 import websockets
@@ -18,7 +16,7 @@ CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 logging.basicConfig(level=logging.INFO)
 
-telegram_bot = Bot(token=TELEGRAM_TOKEN)
+telegram_bot = Bot(token=TELEGRAM_TOKEN, parse_mode=types.ParseMode.MARKDOWN_V2)
 dispatcher = Dispatcher(telegram_bot)
 
 
@@ -66,14 +64,14 @@ async def send_notification(message: types.Message):
 
         logging.info('Gotify Notification Sent!. Response: {}'.format(resp))
 
-        await telegram_bot.send_message(message.chat.id, 'Gotify Sent!', parse_mode=ParseMode.MARKDOWN)
+        await telegram_bot.send_message(message.chat.id, 'Gotify Sent!')
     else:
         logging.error('Gotify APP_TOKEN not defined')
         
         content = []
-        content.append(text(code('GOTIFY_APP_TOKEN'), ' not defined'))
+        content.append(md.text(md.code('GOTIFY_APP_TOKEN'), ' not defined'))
 
-        await telegram_bot.send_message(message.chat.id, content, parse_mode=ParseMode.MARKDOWN)
+        await telegram_bot.send_message(message.chat.id, content)
 
 
 @dispatcher.message_handler(commands=['about'])
@@ -83,9 +81,9 @@ async def send_about(message: types.Message):
     
     content = []
     logging.info('Sending about to: @{}<{}>'.format(message.chat.username, message.chat.id))
-    content.append(text('Gotify Client for Telegram. Connected to: ', code(GOTIFY_URL), ' :check_mark:'))
+    content.append(md.text('Gotify Client for Telegram. Connected to: ', md.code(GOTIFY_URL), ' :check_mark:'))
 
-    await telegram_bot.send_message(message.chat.id, emojize(text(*content, sep='\n')), parse_mode=ParseMode.MARKDOWN)
+    await telegram_bot.send_message(message.chat.id, emojize(md.text(*content, sep='\n')))
 
 
 @dispatcher.message_handler()
