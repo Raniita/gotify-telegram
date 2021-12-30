@@ -83,7 +83,7 @@ async def send_about(message: types.Message):
     logging.info('Sending about to: @{}<{}>'.format(message.chat.username, message.chat.id))
     content.append(md.text('Gotify Client for Telegram. Connected to:', md.code(GOTIFY_URL), ':check_mark: \nSource: ', md.italic('Github: gotify-telegram'), md.code('https://github.com/Raniita/gotify-telegram')))
 
-    await telegram_bot.send_message(message.chat.id, md.escape_md(emojize(md.text(*content))), parse_mode=types.ParseMode.MARKDOWN_V2)
+    await telegram_bot.send_message(message.chat.id, md.escape_md(emojize(md.text(*content))), parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler()
