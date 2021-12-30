@@ -3,4 +3,4 @@ pipeline:
     image: docker
     commands:
       - echo $${DOCKER_USERNAME}
-    secrets: [ docker_username ]
+    secrets: [ docker_username]
