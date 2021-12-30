@@ -1,6 +1,6 @@
 pipeline:
-  docker:
+  deploy_server:
     image: docker
     commands:
-      - echo $test
-    secrets: [testo]
+      - echo $${SSH_HOST}
+    secrets: [SSH_HOST]
