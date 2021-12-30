@@ -16,7 +16,7 @@ CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 logging.basicConfig(level=logging.INFO)
 
-telegram_bot = Bot(token=TELEGRAM_TOKEN, parse_mode=types.ParseMode.MARKDOWN_V2)
+telegram_bot = Bot(token=TELEGRAM_TOKEN)
 dispatcher = Dispatcher(telegram_bot)
 
 
@@ -83,7 +83,7 @@ async def send_about(message: types.Message):
     logging.info('Sending about to: @{}<{}>'.format(message.chat.username, message.chat.id))
     content.append(md.text('Gotify Client for Telegram. Connected to:', md.code(GOTIFY_URL), ':check_mark: \nSource: ', md.italic('Github: gotify-telegram'), md.code('https://github.com/Raniita/gotify-telegram')))
 
-    await telegram_bot.send_message(message.chat.id, md.text(*content), parse_mode=types.ParseMode.MARKDOWN)
+    await telegram_bot.send_message(message.chat.id, emojize(md.text(*content)))
 
 
 @dispatcher.message_handler()
