@@ -7,4 +7,4 @@ pipeline:
     commands:
       - echo "${DOCKER_USER}"
 
-branches: master
+branches: main
