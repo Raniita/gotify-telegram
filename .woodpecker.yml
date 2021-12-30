@@ -4,3 +4,5 @@ pipeline:
     secrets: [ docker_username ]
     commands:
       - echo ${DOCKER_USERNAME}
+
+branches: main
